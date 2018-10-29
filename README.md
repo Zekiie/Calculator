@@ -1,2 +1,2 @@
 # Calculator
-Simple calculator built with Vanila JS
+Simple calculator built with Vanilla JS
