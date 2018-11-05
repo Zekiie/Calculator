@@ -5,19 +5,19 @@ const calculator = {
         operator: null,
     },
     keys = el(".calc_keys"),
-    performCalculation = {
-        '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    pressNum = document.addEventListener('keypress', pressKey);
+performCalculation = {
+    '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
 
-        'x': (firstOperand, secondOperand) => firstOperand * secondOperand,
+    'x': (firstOperand, secondOperand) => firstOperand * secondOperand,
 
-        '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+    '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
 
-        '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+    '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
 
-        '=': (firstOperand, secondOperand) => secondOperand
-    };
-
-
+    '=': (firstOperand, secondOperand) => secondOperand
+};
+console.log(pressNum)
 keys.addEventListener('click', (event) => {
     const {target} = event;
     if (target.classList.contains('main__row-operation')) {
@@ -25,7 +25,7 @@ keys.addEventListener('click', (event) => {
         updateDisplay();
         return;
     } else if (target.classList.contains('main__row-sign')) {
-        inputDecimal(target.innerText);
+        inputDecimal(target);
         updateDisplay();
         return;
     } else if (target.classList.contains('main__row-clear')) {
@@ -37,10 +37,12 @@ keys.addEventListener('click', (event) => {
         return;
     } else if (target.classList.contains('main__row-number') || target.classList.contains('main__row-number0')) {
         inputDigit(target.innerText);
+        changeClear();
         updateDisplay();
         return;
     } else (
         console.log('none'));
+
 
 });
 
@@ -50,12 +52,22 @@ function el(id) {
 
 function updateDisplay() {
     const display = el('#display');
-    if (display.value.length === 9) {
-        console.log('no more space!');
+    if (calculator.displayValue.length >= 9) {
+        calculator.displayValue = display.value;
+        // if (calculator.waitsecondOperand === true) {
+        //     calculator.displayValue = calculator['firstOperand'].toPrecision(6);
+        //     display.value = calculator['firstOperand'].toPrecision(6);
+        //
+        // }
     } else {
         display.value = calculator.displayValue;
     }
+}
 
+function changeClear() {
+    if (calculator.displayValue) {
+        el('#AC').innerHTML = "C";
+    }
 }
 
 function inputDigit(digit) {
@@ -67,12 +79,16 @@ function inputDigit(digit) {
         calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
     }
     console.log(calculator);
+    console.log(parseFloat(calculator.displayValue));
 }
 
 function inputDecimal(dot) {
+
     if (calculator.waitingForSecondOperand === true) return;
     if (!calculator.displayValue.includes(dot)) {
-        calculator.displayValue += dot;
+        calculator.displayValue += dot.dataset.sign;
+        console.log(dot);
+        console.log(parseFloat(calculator.displayValue))
     }
 }
 
@@ -102,7 +118,16 @@ function resetCalculator() {
     calculator.firstOperand = null;
     calculator.waitsecondOperand = false;
     calculator.operator = null;
+    el('#AC').innerHTML = "AC";
 }
+
+function pressKey(event) {
+    var key = "";
+    key += event.key;
+
+    console.log(key);
+}
+
 
 // handlerOperation();
 updateDisplay();

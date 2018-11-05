@@ -9,14 +9,14 @@
   width: 20vw;
   height: 30vw;
   border: 1px solid black;
-  margin: 14vw auto;
+  margin: 8vw auto;
   border-radius: 5%;
   background: black; }
   .main__row {
     display: flex;
     justify-content: space-around;
     margin-bottom: 0.5vw; }
-    .main__row-options {
+    .main__row-options, .main__row-clear {
       background: rgba(240, 244, 245, 0.7);
       width: 4.2vw;
       height: 4.2vw;
