@@ -26,7 +26,7 @@ $main-color: black;
     display:  flex;
     justify-content:space-around;
     margin-bottom: 0.5vw;
-    &-options, &-clear {
+    &-options, &-clear, &-percent {
       background: rgba(240,244,245,0.7);
       // border: 1px solid white;
       @include main-style;

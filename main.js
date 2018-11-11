@@ -17,7 +17,7 @@ performCalculation = {
 
     '=': (firstOperand, secondOperand) => secondOperand
 };
-console.log(pressNum)
+console.log(pressNum);
 keys.addEventListener('click', (event) => {
     const {target} = event;
     if (target.classList.contains('main__row-operation')) {
@@ -33,7 +33,13 @@ keys.addEventListener('click', (event) => {
         updateDisplay();
         return;
     } else if (target.classList.contains('main__row-options')) {
-        console.log('options', target.innerText);
+        changeSign();
+        updateDisplay();
+        return;
+    } else if (target.classList.contains('main__row-percent')) {
+        percentDigit();
+        updateDisplay();
+        console.log(calculator);
         return;
     } else if (target.classList.contains('main__row-number') || target.classList.contains('main__row-number0')) {
         inputDigit(target.innerText);
@@ -51,17 +57,7 @@ function el(id) {
 }
 
 function updateDisplay() {
-    const display = el('#display');
-    if (calculator.displayValue.length >= 9) {
-        calculator.displayValue = display.value;
-        // if (calculator.waitsecondOperand === true) {
-        //     calculator.displayValue = calculator['firstOperand'].toPrecision(6);
-        //     display.value = calculator['firstOperand'].toPrecision(6);
-        //
-        // }
-    } else {
-        display.value = calculator.displayValue;
-    }
+    el('#display').value = calculator.displayValue;
 }
 
 function changeClear() {
@@ -90,6 +86,16 @@ function inputDecimal(dot) {
         console.log(dot);
         console.log(parseFloat(calculator.displayValue))
     }
+}
+
+function percentDigit() {
+    calculator.displayValue = +calculator.displayValue / 100;
+    return calculator.displayValue;
+
+}
+
+function changeSign () {
+    return calculator.displayValue *= -1;
 }
 
 function handlerOperation(nextOperator) {

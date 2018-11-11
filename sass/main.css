@@ -16,7 +16,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 0.5vw; }
-    .main__row-options, .main__row-clear {
+    .main__row-options, .main__row-clear, .main__row-percent {
       background: rgba(240, 244, 245, 0.7);
       width: 4.2vw;
       height: 4.2vw;
